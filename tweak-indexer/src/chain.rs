@@ -170,7 +170,7 @@ impl Chain {
             let previous_script = if let Some(prev_script) = self.find_previous_script(&input.previous_output.txid.to_string(), input.previous_output.vout) {
                 ScriptBuf::from_hex(&prev_script.script)?
             } else {
-                warn!("Had to fetch previous input transaction using RPC (txid): {}",transaction.compute_txid());
+                debug!("Had to fetch previous input transaction using RPC (txid): {}",transaction.compute_txid());
                 let previous_tx_hex = get_transaction(&input.previous_output.txid.to_string())?;
                 let previous_tx: Transaction = deserialize_hex::<Transaction>(&previous_tx_hex)?;
                 assert!(previous_tx.compute_txid() == input.previous_output.txid);
